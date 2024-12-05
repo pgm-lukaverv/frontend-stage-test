@@ -12,6 +12,7 @@ Your code will be evaluated according to following criteria:
 - State management
 - Coding style (we like clean code)
 - Solution & architecture design
+- CSS (library) usage
 
 **Requirements**
 
@@ -25,6 +26,7 @@ We’re assembling a team to fight the dark side! Our application will assist us
 - The application should have a team page showing your assembled team. We should be able to remove characters from our team from this page as well.
 - We should be able to see and manage our assembled team from every page
 - A team has max. 5 members
+- Style the application (pure css or a library)
 
 A character is defined as evil when:
 
