@@ -50,4 +50,4 @@ APIs provided:
 
 1. Add some documentation in a README file
 
-Good luck, and may the force be with you!
+Good luck, and may the code be with you!
