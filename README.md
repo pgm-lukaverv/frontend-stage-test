@@ -49,5 +49,6 @@ APIs provided:
 **Final steps**
 
 1. Add some documentation in a README file
+1. If you are using AI (which is probably the case), then list the prompt you used.
 
 Good luck, and may the code be with you!
