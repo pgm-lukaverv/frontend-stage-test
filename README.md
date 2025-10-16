@@ -1,54 +1,36 @@
-# Starwars Front-end Coding Test
-**Intro**
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-In this technical front-end developer test, you're going to build a simple application. The objective is to test your skills, to measure how you solve coding challenges and do research.
+## Getting Started
 
-We’re open to feedback regarding this exercise.
+First, run the development server:
 
-Your code will be evaluated according to following criteria:
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-- JavaScript/TypeScript usage
-- Correct framework usage
-- State management
-- Coding style (we like clean code)
-- Solution & architecture design
-- CSS (library) usage
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-**Requirements**
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-We’re assembling a team to fight the dark side! Our application will assist us in creating a team of maximum 5 Star Wars characters. Our team is determined to eradicate evil, which means **no evil members are allowed to join**. 
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-- Create an application that shows a list of Star Wars characters
-- The application should have a detail page for every character
-- Each detail page shows some basic information about the selected character (name, image, height, mass, affiliations)
-- Each detail page has a next and previous button to navigate between characters
-- Each detail page allows us to add and/or remove the selected character from our team
-- The application should have a team page showing your assembled team. We should be able to remove characters from our team from this page as well.
-- We should be able to see and manage our assembled team from every page
-- A team has max. 5 members
-- Style the application (pure css or a library)
+## Learn More
 
-A character is defined as evil when:
+To learn more about Next.js, take a look at the following resources:
 
-- They have ‘Darth’ or ‘Sith’ in their name
-- They have at least one affiliation that mentions ‘Darth’ or ‘Sith’ 
-  (you may ignore former affiliations)
-- They have at least one master with ‘Darth’ in their name
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-APIs provided:
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-<https://akabab.github.io/starwars-api/>
+## Deploy on Vercel
 
-**Some ideas to earn bonus points**
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-1. Pagination for main list of characters
-1. Create (unit) tests for your components and/or business logic
-1. Add prettier and/or linting
-1. Use your creativity to add a personal touch
-
-**Final steps**
-
-1. Add some documentation in a README file
-1. If you are using AI (which is probably the case), then list the prompt you used.
-
-Good luck, and may the code be with you!
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
