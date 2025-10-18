@@ -1,10 +1,23 @@
 export type Character = {
   id: number;
   name: string;
-  image: string;
-  species: string;
+  height: number;
+  mass: number;
+  gender: string;
   homeworld: string;
-  affiliation: string;
-  born: string;
-  died: string | null;
+  wiki: string;
+  image: string;
+  born: number;
+  bornLocation: string;
+  died: number | null;
+  diedLocation: string | null;
+  species: string;
+  hairColor: string;
+  eyeColor: string;
+  skinColor: string;
+  cybernetics: string | null;
+  affiliations: string[];
+  masters: string[];
+  apprentices: string[];
+  formerAffiliations: string[];
 };
