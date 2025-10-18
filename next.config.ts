@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ["akabab.github.io", "vignette.wikia.nocookie.net"],
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
