@@ -1,4 +1,5 @@
 import { fetchCharacters } from "@/lib/fetchCharacters";
+import Link from "next/link";
 import Image from "next/image";
 
 interface CharacterPageProps {
@@ -16,7 +17,15 @@ export default async function CharacterDetailPage({
   }
 
   return (
-    <main className="max-w-2xl mx-auto p-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 rounded-3xl shadow-2xl mt-12">
+    <main className="max-w-2xl mx-auto p-8 bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-3xl shadow-2xl mt-12 border-2 border-yellow-500">
+      <div className="mb-6 w-full flex justify-start">
+        <Link
+          href="/characters"
+          className="inline-flex items-center gap-2 text-yellow-400 font-bold rounded-full px-4 py-2 transition-transform hover:scale-105 hover:text-yellow-300 focus:outline-none"
+        >
+          ← Back to Characters
+        </Link>
+      </div>
       <div className="flex flex-col items-center">
         <div className="relative w-40 h-40 mb-6">
           <Image
@@ -27,53 +36,53 @@ export default async function CharacterDetailPage({
             sizes="160px"
           />
         </div>
-        <h1 className="text-4xl font-extrabold mb-4 text-yellow-400 tracking-tight drop-shadow-lg text-center">
+        <h1 className="text-4xl font-extrabold mb-4 text-yellow-400 tracking-wide drop-shadow-lg text-center font-sans">
           {character.name}
         </h1>
         <div className="grid grid-cols-2 gap-6 w-full mb-6">
-          <div className="bg-gray-800 rounded-xl p-4 flex flex-col items-center">
+          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
             <span className="text-sm text-gray-400">Gender</span>
             <span className="text-lg font-semibold text-white">
               {character.gender}
             </span>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 flex flex-col items-center">
+          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
             <span className="text-sm text-gray-400">Species</span>
             <span className="text-lg font-semibold text-white">
               {character.species}
             </span>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 flex flex-col items-center">
+          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
             <span className="text-sm text-gray-400">Homeworld</span>
             <span className="text-lg font-semibold text-white">
               {character.homeworld}
             </span>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 flex flex-col items-center">
+          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
             <span className="text-sm text-gray-400">Height</span>
             <span className="text-lg font-semibold text-white">
               {character.height} m
             </span>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 flex flex-col items-center">
+          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
             <span className="text-sm text-gray-400">Mass</span>
             <span className="text-lg font-semibold text-white">
               {character.mass} kg
             </span>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 flex flex-col items-center">
+          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
             <span className="text-sm text-gray-400">Hair Color</span>
             <span className="text-lg font-semibold text-white">
               {character.hairColor ? character.hairColor : "N/A"}
             </span>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 flex flex-col items-center">
+          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
             <span className="text-sm text-gray-400">Skin Color</span>
             <span className="text-lg font-semibold text-white">
               {character.skinColor}
             </span>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 flex flex-col items-center">
+          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
             <span className="text-sm text-gray-400">Eye Color</span>
             <span className="text-lg font-semibold text-white">
               {character.eyeColor}
@@ -87,7 +96,7 @@ export default async function CharacterDetailPage({
           </div>
         </div>
         <div className="w-full mb-6">
-          <div className="bg-gray-800 rounded-xl p-4 flex flex-col items-center mb-2">
+          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center mb-2 shadow-lg">
             <span className="text-sm text-gray-400">Wiki</span>
             <a
               href={character.wiki}
@@ -98,14 +107,14 @@ export default async function CharacterDetailPage({
               {character.wiki}
             </a>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 flex flex-col items-center mb-2">
+          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center mb-2 shadow-lg">
             <span className="text-sm text-gray-400">Born</span>
             <span className="text-lg font-semibold text-white text-center">
               {character.born} (
               {character.bornLocation ? character.bornLocation : "N/A"})
             </span>
           </div>
-          <div className="bg-gray-800 rounded-xl p-4 flex flex-col items-center mb-2">
+          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center mb-2 shadow-lg">
             <span className="text-sm text-gray-400">Died</span>
             <span className="text-lg font-semibold text-white text-center">
               {character.died !== null && character.died !== undefined
@@ -115,7 +124,7 @@ export default async function CharacterDetailPage({
           </div>
           {Array.isArray(character.affiliations) &&
             character.affiliations.length > 0 && (
-              <div className="bg-gray-800 rounded-xl p-4 mt-2">
+              <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 mt-2 shadow-lg">
                 <span className="text-sm text-gray-400 block mb-2">
                   Affiliations
                 </span>
@@ -127,7 +136,7 @@ export default async function CharacterDetailPage({
               </div>
             )}
           {Array.isArray(character.masters) && character.masters.length > 0 && (
-            <div className="bg-gray-800 rounded-xl p-4 mt-2">
+            <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 mt-2 shadow-lg">
               <span className="text-sm text-gray-400 block mb-2">Masters</span>
               <ul className="list-disc ml-6 text-white text-base">
                 {character.masters.map((item, idx) => (
@@ -138,7 +147,7 @@ export default async function CharacterDetailPage({
           )}
           {Array.isArray(character.apprentices) &&
             character.apprentices.length > 0 && (
-              <div className="bg-gray-800 rounded-xl p-4 mt-2">
+              <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 mt-2 shadow-lg">
                 <span className="text-sm text-gray-400 block mb-2">
                   Apprentices
                 </span>
@@ -151,7 +160,7 @@ export default async function CharacterDetailPage({
             )}
           {Array.isArray(character.formerAffiliations) &&
             character.formerAffiliations.length > 0 && (
-              <div className="bg-gray-800 rounded-xl p-4 mt-2">
+              <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 mt-2 shadow-lg">
                 <span className="text-sm text-gray-400 block mb-2">
                   Former Affiliations
                 </span>
