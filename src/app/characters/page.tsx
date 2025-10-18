@@ -1,22 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
+import { Character } from "@/types/character";
+import { fetchCharacters } from "@/lib/fetchCharacters";
 import Image from "next/image";
-
-type Character = {
-  id: number;
-  name: string;
-  image: string;
-};
+import Link from "next/link";
 
 export default function CharactersPage() {
   const [characters, setCharacters] = useState<Character[]>([]);
 
   useEffect(() => {
-    fetch("https://akabab.github.io/starwars-api/api/all.json")
-      .then((response) => response.json())
+    fetchCharacters()
       .then((data) => setCharacters(data))
       .catch((error) => console.error("Error fetching characters:", error));
-  }, []);
+  });
 
   return (
     <main className="p-8 min-h-screen bg-gray-50">
@@ -29,18 +25,20 @@ export default function CharactersPage() {
             key={character.id}
             className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow flex flex-col items-center p-4 border border-gray-100"
           >
-            <div className="w-40 h-40 flex items-center justify-center mb-4">
-              <Image
-                src={character.image}
-                alt={character.name}
-                width={160}
-                height={160}
-                className="rounded-full object-cover w-full h-full"
-              />
-            </div>
-            <h2 className="text-lg font-semibold text-gray-700 text-center mb-2">
-              {character.name}
-            </h2>
+            <Link href={`/characters/${character.id}`}>
+              <div className="w-40 h-40 flex items-center justify-center mb-4">
+                <Image
+                  src={character.image}
+                  alt={character.name}
+                  width={160}
+                  height={160}
+                  className="rounded-full object-cover w-full h-full"
+                />
+              </div>
+              <h2 className="text-lg font-semibold text-gray-700 text-center mb-2">
+                {character.name}
+              </h2>
+            </Link>
           </div>
         ))}
       </div>
