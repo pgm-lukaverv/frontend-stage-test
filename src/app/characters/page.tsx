@@ -31,7 +31,11 @@ export default function CharactersPage() {
             >
               <div className="w-32 h-32 flex items-center justify-center mb-4 relative">
                 <Image
-                  src={character.image}
+                  src={
+                    character.image && character.image.trim() !== ""
+                      ? character.image
+                      : "https://wallpapers.com/images/hd/anonymous-profile-placeholder-34zkftbfh75t42k0.jpg"
+                  }
                   alt={character.name}
                   width={128}
                   height={128}
@@ -57,8 +61,8 @@ export default function CharactersPage() {
             Your Team (Coming Soon)
           </h2>
           <p className="text-gray-300 text-center">
-            Assemble up to 5 heroes to fight the dark side. Click &quot;Add to Team&quot;
-            on a character to add them here.
+            Assemble up to 5 heroes to fight the dark side. Click &quot;Add to
+            Team&quot; on a character to add them here.
           </p>
         </div>
       </div>
