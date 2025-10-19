@@ -9,6 +9,8 @@ import Link from "next/link";
 export default function CharactersPage() {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [charactersPerPage, setCharactersPerPage] = useState(8);
 
   useEffect(() => {
     setLoading(true);
@@ -18,6 +20,14 @@ export default function CharactersPage() {
       .finally(() => setLoading(false));
   }, []);
 
+  const indexOfLastCharacter = currentPage * charactersPerPage;
+  const indexOfFirstCharacter = indexOfLastCharacter - charactersPerPage;
+  const currentCharacters = characters.slice(
+    indexOfFirstCharacter,
+    indexOfLastCharacter
+  );
+  const totalPages = Math.ceil(characters.length / charactersPerPage);
+
   return (
     <main className="p-8 min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
       <h1 className="text-yellow-400 font-extrabold text-4xl mb-8 text-center drop-shadow-lg tracking-wide font-sans">
@@ -26,7 +36,7 @@ export default function CharactersPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {loading
           ? Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)
-          : characters.map((character) => (
+          : currentCharacters.map((character) => (
               <div
                 key={character.id}
                 className="bg-gray-900 border border-yellow-500 shadow-lg hover:shadow-yellow-500/40 transition-shadow flex flex-col items-center p-4 rounded-2xl hover:ring-2 hover:ring-yellow-400"
@@ -61,17 +71,64 @@ export default function CharactersPage() {
               </div>
             ))}
       </div>
-      <div className="mt-12 flex justify-center">
-        <div className="bg-gray-800 border border-yellow-500 rounded-2xl p-6 shadow-lg w-full max-w-2xl flex flex-col items-center">
-          <h2 className="text-yellow-400 font-bold text-2xl mb-2 tracking-wide">
-            Your Team (Coming Soon)
-          </h2>
-          <p className="text-gray-300 text-center">
-            Assemble up to 5 heroes to fight the dark side. Click &quot;Add to
-            Team&quot; on a character to add them here.
-          </p>
+      {!loading && totalPages > 0 && (
+        <div className="flex flex-col items-center mt-8 space-y-2">
+          {/* Items per page selector */}
+          <div className="flex items-center mb-2">
+            <label className="mr-2 text-yellow-300 font-semibold">
+              Items per page:
+            </label>
+            <select
+              value={charactersPerPage}
+              onChange={(e) => {
+                setCharactersPerPage(Number(e.target.value));
+                setCurrentPage(1); // Reset to first page when changing
+              }}
+              className="bg-gray-800 text-yellow-400 rounded px-2 py-1"
+            >
+              {[8, 12, 16].map((num) => (
+                <option key={num} value={num}>
+                  {num}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* Pagination buttons */}
+          {totalPages > 1 && (
+            <div className="flex justify-center space-x-2">
+              <button
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 bg-gray-700 text-yellow-400 rounded disabled:opacity-50"
+              >
+                Previous
+              </button>
+              {[...Array(totalPages)].map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentPage(i + 1)}
+                  className={`px-3 py-2 rounded ${
+                    currentPage === i + 1
+                      ? "bg-yellow-400 text-gray-900"
+                      : "bg-gray-700 text-yellow-400"
+                  }`}
+                >
+                  {i + 1}
+                </button>
+              ))}
+              <button
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                }
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 bg-gray-700 text-yellow-400 rounded disabled:opacity-50"
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
-      </div>
+      )}
     </main>
   );
 }
