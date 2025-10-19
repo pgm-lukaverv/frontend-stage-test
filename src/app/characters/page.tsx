@@ -33,19 +33,19 @@ export default function CharactersPage() {
       <h1 className="text-yellow-400 font-extrabold text-4xl mb-8 text-center drop-shadow-lg tracking-wide font-sans">
         Star Wars Characters
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-2 md:px-8 md:ml-0 w-full">
         {loading
           ? Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)
           : currentCharacters.map((character) => (
               <div
                 key={character.id}
-                className="bg-gray-900 border border-yellow-500 shadow-lg hover:shadow-yellow-500/40 transition-shadow flex flex-col items-center p-4 rounded-2xl hover:ring-2 hover:ring-yellow-400"
+                className="bg-gray-900 border border-yellow-500 shadow-lg hover:shadow-yellow-500/40 transition-shadow flex flex-col items-center p-2 sm:p-4 rounded-xl sm:rounded-2xl hover:ring-2 hover:ring-yellow-400 w-full max-w-xs mx-auto"
               >
                 <Link
                   href={`/characters/${character.id}`}
                   className="w-full flex flex-col items-center"
                 >
-                  <div className="w-32 h-32 flex items-center justify-center mb-4 relative">
+                  <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center mb-4 relative">
                     <Image
                       src={
                         character.image && character.image.trim() !== ""
@@ -58,7 +58,7 @@ export default function CharactersPage() {
                       className="rounded-full object-cover w-full h-full border-4 border-yellow-400 shadow"
                     />
                   </div>
-                  <h2 className="text-xl font-bold text-yellow-300 text-center mb-2 tracking-wide font-sans">
+                  <h2 className="text-lg sm:text-xl font-bold text-yellow-300 text-center mb-2 tracking-wide font-sans break-words">
                     {character.name}
                   </h2>
                 </Link>
@@ -73,7 +73,7 @@ export default function CharactersPage() {
       </div>
 
       {!loading && totalPages > 0 && (
-        <div className="flex flex-col items-center mt-8 space-y-2">
+        <div className="flex flex-col items-center mt-8 space-y-2 w-full px-2 mb-16">
           {/* Items per page selector */}
           <div className="flex items-center mb-2">
             <label className="mr-2 text-yellow-300 font-semibold">
@@ -96,36 +96,42 @@ export default function CharactersPage() {
           </div>
           {/* Pagination buttons */}
           {totalPages > 1 && (
-            <div className="flex justify-center space-x-2">
-              <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className="px-4 py-2 bg-gray-700 text-yellow-400 rounded disabled:opacity-50"
-              >
-                Previous
-              </button>
-              {[...Array(totalPages)].map((_, i) => (
+            <div className="w-full">
+              <div className="flex flex-wrap flex-row justify-center items-center gap-2 w-full mb-2">
+                {[...Array(totalPages)].map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentPage(i + 1)}
+                    className={`px-3 py-2 rounded w-auto ${
+                      currentPage === i + 1
+                        ? "bg-yellow-400 text-gray-900"
+                        : "bg-gray-700 text-yellow-400"
+                    }`}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+              </div>
+              <div className="flex justify-center gap-2 w-full">
                 <button
-                  key={i}
-                  onClick={() => setCurrentPage(i + 1)}
-                  className={`px-3 py-2 rounded ${
-                    currentPage === i + 1
-                      ? "bg-yellow-400 text-gray-900"
-                      : "bg-gray-700 text-yellow-400"
-                  }`}
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
+                  disabled={currentPage === 1}
+                  className="px-4 py-2 bg-gray-700 text-yellow-400 rounded disabled:opacity-50 w-auto"
                 >
-                  {i + 1}
+                  Previous
                 </button>
-              ))}
-              <button
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                }
-                disabled={currentPage === totalPages}
-                className="px-4 py-2 bg-gray-700 text-yellow-400 rounded disabled:opacity-50"
-              >
-                Next
-              </button>
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                  disabled={currentPage === totalPages}
+                  className="px-4 py-2 bg-gray-700 text-yellow-400 rounded disabled:opacity-50 w-auto"
+                >
+                  Next
+                </button>
+              </div>
             </div>
           )}
         </div>
