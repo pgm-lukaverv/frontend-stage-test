@@ -1,4 +1,5 @@
 import { fetchCharacters } from "@/lib/fetchCharacters";
+import { isEvilCharacter } from "@/lib/isEvilCharacter";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -16,8 +17,13 @@ export default async function CharacterDetailPage({
     return <div className="p-8">Character not found.</div>;
   }
 
+  const isEvil = isEvilCharacter(character);
   return (
-    <main className="max-w-2xl mx-auto p-8 bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-3xl shadow-2xl mt-12 border-2 border-yellow-500">
+    <main
+      className={`max-w-2xl mx-auto p-8 bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-3xl shadow-2xl mt-12 border-2 ${
+        isEvil ? "border-red-500" : "border-yellow-500"
+      }`}
+    >
       <div className="mb-6 w-full flex justify-start">
         <Link
           href="/characters"
@@ -32,71 +38,62 @@ export default async function CharacterDetailPage({
             src={character.image}
             alt={character.name}
             fill
-            className="rounded-full object-cover border-4 border-yellow-400 shadow-lg"
+            className={`rounded-full object-cover border-4 shadow-lg ${
+              isEvil ? "border-red-500" : "border-yellow-400"
+            }`}
             sizes="160px"
           />
         </div>
-        <h1 className="text-4xl font-extrabold mb-4 text-yellow-400 tracking-wide drop-shadow-lg text-center font-sans">
+        <h1
+          className={`text-4xl font-extrabold mb-4 text-yellow-400 tracking-wide drop-shadow-lg text-center font-sans flex flex-col items-center gap-2 ${
+            isEvil ? "text-red-500" : "text-yellow-400"
+          }`}
+        >
           {character.name}
+          {isEvilCharacter(character) && (
+            <span className="inline-block px-3 py-1 rounded-full bg-red-700 text-white text-xs font-bold uppercase tracking-wider shadow-md animate-pulse border-2 border-red-400">
+              Evil
+            </span>
+          )}
         </h1>
         <div className="grid grid-cols-2 gap-6 w-full mb-6">
-          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
-            <span className="text-sm text-gray-400">Gender</span>
-            <span className="text-lg font-semibold text-white">
-              {character.gender}
-            </span>
-          </div>
-          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
-            <span className="text-sm text-gray-400">Species</span>
-            <span className="text-lg font-semibold text-white">
-              {character.species}
-            </span>
-          </div>
-          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
-            <span className="text-sm text-gray-400">Homeworld</span>
-            <span className="text-lg font-semibold text-white">
-              {character.homeworld}
-            </span>
-          </div>
-          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
-            <span className="text-sm text-gray-400">Height</span>
-            <span className="text-lg font-semibold text-white">
-              {character.height} m
-            </span>
-          </div>
-          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
-            <span className="text-sm text-gray-400">Mass</span>
-            <span className="text-lg font-semibold text-white">
-              {character.mass} kg
-            </span>
-          </div>
-          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
-            <span className="text-sm text-gray-400">Hair Color</span>
-            <span className="text-lg font-semibold text-white">
-              {character.hairColor ? character.hairColor : "N/A"}
-            </span>
-          </div>
-          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
-            <span className="text-sm text-gray-400">Skin Color</span>
-            <span className="text-lg font-semibold text-white">
-              {character.skinColor}
-            </span>
-          </div>
-          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center shadow-lg">
-            <span className="text-sm text-gray-400">Eye Color</span>
-            <span className="text-lg font-semibold text-white">
-              {character.eyeColor}
-            </span>
-          </div>
-          <div className="bg-gray-800 rounded-xl p-4 flex flex-col items-center">
-            <span className="text-sm text-gray-400">Cybernetics</span>
-            <span className="text-lg font-semibold text-white">
-              {character.cybernetics || "None"}
-            </span>
-          </div>
+          {[
+            { label: "Gender", value: character.gender },
+            { label: "Species", value: character.species },
+            { label: "Homeworld", value: character.homeworld },
+            { label: "Height", value: `${character.height} m` },
+            { label: "Mass", value: `${character.mass} kg` },
+            {
+              label: "Hair Color",
+              value: character.hairColor ? character.hairColor : "N/A",
+            },
+            { label: "Skin Color", value: character.skinColor },
+            { label: "Eye Color", value: character.eyeColor },
+            {
+              label: "Cybernetics",
+              value: character.cybernetics || "None",
+              isGray: true,
+            },
+          ].map((item) => (
+            <div
+              key={item.label}
+              className={`rounded-xl p-4 flex flex-col items-center shadow-lg ${
+                item.isGray ? "bg-gray-800" : "bg-gray-900"
+              } border ${isEvil ? "border-red-500" : "border-yellow-500"}`}
+            >
+              <span className="text-sm text-gray-400">{item.label}</span>
+              <span className="text-lg font-semibold text-white">
+                {item.value}
+              </span>
+            </div>
+          ))}
         </div>
         <div className="w-full mb-6">
-          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center mb-2 shadow-lg">
+          <div
+            className={`bg-gray-900 border rounded-xl p-4 flex flex-col items-center mb-2 shadow-lg ${
+              isEvil ? "border-red-500" : "border-yellow-500"
+            }`}
+          >
             <span className="text-sm text-gray-400">Wiki</span>
             <a
               href={character.wiki}
@@ -107,14 +104,22 @@ export default async function CharacterDetailPage({
               {character.wiki}
             </a>
           </div>
-          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center mb-2 shadow-lg">
+          <div
+            className={`bg-gray-900 border rounded-xl p-4 flex flex-col items-center mb-2 shadow-lg ${
+              isEvil ? "border-red-500" : "border-yellow-500"
+            }`}
+          >
             <span className="text-sm text-gray-400">Born</span>
             <span className="text-lg font-semibold text-white text-center">
               {character.born} (
               {character.bornLocation ? character.bornLocation : "N/A"})
             </span>
           </div>
-          <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 flex flex-col items-center mb-2 shadow-lg">
+          <div
+            className={`bg-gray-900 border rounded-xl p-4 flex flex-col items-center mb-2 shadow-lg ${
+              isEvil ? "border-red-500" : "border-yellow-500"
+            }`}
+          >
             <span className="text-sm text-gray-400">Died</span>
             <span className="text-lg font-semibold text-white text-center">
               {character.died !== null && character.died !== undefined
@@ -124,7 +129,11 @@ export default async function CharacterDetailPage({
           </div>
           {Array.isArray(character.affiliations) &&
             character.affiliations.length > 0 && (
-              <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 mt-2 shadow-lg">
+              <div
+                className={`bg-gray-900 border rounded-xl p-4 mt-2 shadow-lg ${
+                  isEvil ? "border-red-500" : "border-yellow-500"
+                }`}
+              >
                 <span className="text-sm text-gray-400 block mb-2">
                   Affiliations
                 </span>
@@ -136,7 +145,11 @@ export default async function CharacterDetailPage({
               </div>
             )}
           {Array.isArray(character.masters) && character.masters.length > 0 && (
-            <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 mt-2 shadow-lg">
+            <div
+              className={`bg-gray-900 border rounded-xl p-4 mt-2 shadow-lg ${
+                isEvil ? "border-red-500" : "border-yellow-500"
+              }`}
+            >
               <span className="text-sm text-gray-400 block mb-2">Masters</span>
               <ul className="list-disc ml-6 text-white text-base">
                 {character.masters.map((item, idx) => (
@@ -147,7 +160,11 @@ export default async function CharacterDetailPage({
           )}
           {Array.isArray(character.apprentices) &&
             character.apprentices.length > 0 && (
-              <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 mt-2 shadow-lg">
+              <div
+                className={`bg-gray-900 border rounded-xl p-4 mt-2 shadow-lg ${
+                  isEvil ? "border-red-500" : "border-yellow-500"
+                }`}
+              >
                 <span className="text-sm text-gray-400 block mb-2">
                   Apprentices
                 </span>
@@ -160,7 +177,11 @@ export default async function CharacterDetailPage({
             )}
           {Array.isArray(character.formerAffiliations) &&
             character.formerAffiliations.length > 0 && (
-              <div className="bg-gray-900 border border-yellow-500 rounded-xl p-4 mt-2 shadow-lg">
+              <div
+                className={`bg-gray-900 border rounded-xl p-4 mt-2 shadow-lg ${
+                  isEvil ? "border-red-500" : "border-yellow-500"
+                }`}
+              >
                 <span className="text-sm text-gray-400 block mb-2">
                   Former Affiliations
                 </span>

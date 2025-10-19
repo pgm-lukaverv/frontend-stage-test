@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Character } from "@/types/character";
 import { fetchCharacters } from "@/lib/fetchCharacters";
+import { isEvilCharacter } from "@/lib/isEvilCharacter";
 import SkeletonCard from "@/components/SkeletonCard";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,40 +37,53 @@ export default function CharactersPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-2 md:px-8 md:ml-0 w-full">
         {loading
           ? Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)
-          : currentCharacters.map((character) => (
-              <div
-                key={character.id}
-                className="bg-gray-900 border border-yellow-500 shadow-lg hover:shadow-yellow-500/40 transition-shadow flex flex-col items-center p-2 sm:p-4 rounded-xl sm:rounded-2xl hover:ring-2 hover:ring-yellow-400 w-full max-w-xs mx-auto"
-              >
-                <Link
-                  href={`/characters/${character.id}`}
-                  className="w-full flex flex-col items-center"
+          : currentCharacters.map((character) => {
+              const evil = isEvilCharacter(character);
+              return (
+                <div
+                  key={character.id}
+                  className={`bg-gray-900 border shadow-lg transition-shadow flex flex-col items-center p-2 sm:p-4 rounded-xl sm:rounded-2xl hover:ring-2 w-full max-w-xs mx-auto ${
+                    evil
+                      ? "border-red-500 hover:shadow-red-500/40 hover:ring-red-400"
+                      : "border-yellow-500 hover:shadow-yellow-500/40 hover:ring-yellow-400"
+                  }`}
                 >
-                  <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center mb-4 relative">
-                    <Image
-                      src={
-                        character.image && character.image.trim() !== ""
-                          ? character.image
-                          : "https://wallpapers.com/images/hd/anonymous-profile-placeholder-34zkftbfh75t42k0.jpg"
-                      }
-                      alt={character.name}
-                      width={128}
-                      height={128}
-                      className="rounded-full object-cover w-full h-full border-4 border-yellow-400 shadow"
-                    />
-                  </div>
-                  <h2 className="text-lg sm:text-xl font-bold text-yellow-300 text-center mb-2 tracking-wide font-sans break-words">
-                    {character.name}
-                  </h2>
-                </Link>
-                <button
-                  className="bg-yellow-400 text-gray-900 font-bold rounded-full px-4 py-2 mt-4 hover:bg-yellow-500 transition shadow-lg"
-                  disabled
-                >
-                  Add to Team
-                </button>
-              </div>
-            ))}
+                  <Link
+                    href={`/characters/${character.id}`}
+                    className="w-full flex flex-col items-center"
+                  >
+                    <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center mb-4 relative">
+                      <Image
+                        src={
+                          character.image && character.image.trim() !== ""
+                            ? character.image
+                            : "https://wallpapers.com/images/hd/anonymous-profile-placeholder-34zkftbfh75t42k0.jpg"
+                        }
+                        alt={character.name}
+                        width={128}
+                        height={128}
+                        className={`rounded-full object-cover w-full h-full border-4 shadow ${
+                          evil ? "border-red-400" : "border-yellow-400"
+                        }`}
+                      />
+                    </div>
+                    <h2
+                      className={`text-lg sm:text-xl font-bold text-yellow-300 text-center mb-2 tracking-wide font-sans break-words ${
+                        evil ? "text-red-500" : ""
+                      }`}
+                    >
+                      {character.name}
+                    </h2>
+                  </Link>
+                  <button
+                    className="bg-yellow-400 text-gray-900 font-bold rounded-full px-4 py-2 mt-4 hover:bg-yellow-500 transition shadow-lg"
+                    disabled
+                  >
+                    Add to Team
+                  </button>
+                </div>
+              );
+            })}
       </div>
 
       {!loading && totalPages > 0 && (
