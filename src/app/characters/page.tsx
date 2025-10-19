@@ -71,6 +71,7 @@ export default function CharactersPage() {
               </div>
             ))}
       </div>
+
       {!loading && totalPages > 0 && (
         <div className="flex flex-col items-center mt-8 space-y-2">
           {/* Items per page selector */}
