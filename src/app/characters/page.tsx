@@ -82,12 +82,14 @@ export default function CharactersPage() {
                     >
                       Details
                     </Link>
-                    <button
-                      className="bg-yellow-400 text-gray-900 font-bold rounded-full px-4 py-2 hover:bg-yellow-500 transition shadow-lg"
-                      disabled
-                    >
-                      Add to Team
-                    </button>
+                    {!evil && (
+                      <button
+                        className="bg-yellow-400 text-gray-900 font-bold rounded-full px-4 py-2 hover:bg-yellow-500 transition shadow-lg"
+                        disabled
+                      >
+                        Add to Team
+                      </button>
+                    )}
                   </div>
                 </div>
               );
