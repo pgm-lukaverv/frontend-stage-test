@@ -45,7 +45,7 @@ export default async function CharacterDetailPage({
           />
         </div>
         <h1
-          className={`text-4xl font-extrabold mb-4 text-yellow-400 tracking-wide drop-shadow-lg text-center font-sans flex flex-col items-center gap-2 ${
+          className={`text-4xl font-extrabold mb-4 tracking-wide drop-shadow-lg text-center font-sans flex flex-col items-center gap-2 ${
             isEvil ? "text-red-500" : "text-yellow-400"
           }`}
         >

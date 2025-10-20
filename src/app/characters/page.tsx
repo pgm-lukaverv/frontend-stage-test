@@ -68,8 +68,8 @@ export default function CharactersPage() {
                       />
                     </div>
                     <h2
-                      className={`text-lg sm:text-xl font-bold text-yellow-300 text-center mb-2 tracking-wide font-sans break-words ${
-                        evil ? "text-red-500" : ""
+                      className={`text-lg sm:text-xl font-bold text-center mb-2 tracking-wide font-sans break-words ${
+                        evil ? "text-red-500" : "text-yellow-400"
                       }`}
                     >
                       {character.name}
