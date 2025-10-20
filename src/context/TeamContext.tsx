@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { Character } from "@/types/character";
 
 type TeamContextType = {
@@ -18,6 +18,19 @@ export const useTeam = () => {
 
 export const TeamProvider = ({ children }: { children: React.ReactNode }) => {
   const [team, setTeam] = useState<Character[]>([]);
+
+  useEffect(() => {
+    // On mount, load from localStorage
+    if (team.length === 0) {
+      const saved = localStorage.getItem("team");
+      if (saved) {
+        setTeam(JSON.parse(saved));
+      }
+    } else {
+      // On team change, save to localStorage
+      localStorage.setItem("team", JSON.stringify(team));
+    }
+  }, [team]);
 
   const addToTeam = (character: Character) => {
     if (team.length < 5 && !team.some((member) => member.id === character.id)) {
