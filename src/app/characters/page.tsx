@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Character } from "@/types/character";
 import { fetchCharacters } from "@/lib/fetchCharacters";
 import { isEvilCharacter } from "@/lib/isEvilCharacter";
+import { useTeam } from "@/context/TeamContext";
 import SkeletonCard from "@/components/SkeletonCard";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,6 +13,8 @@ export default function CharactersPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [charactersPerPage, setCharactersPerPage] = useState(8);
+
+  const { addToTeam, team } = useTeam();
 
   useEffect(() => {
     setLoading(true);
@@ -85,7 +88,8 @@ export default function CharactersPage() {
                     {!evil && (
                       <button
                         className="bg-yellow-400 text-gray-900 font-bold rounded-full px-4 py-2 hover:bg-yellow-500 transition shadow-lg"
-                        disabled
+                        onClick={() => addToTeam(character)}
+                        disabled={team.length >= 5}
                       >
                         Add to Team
                       </button>
