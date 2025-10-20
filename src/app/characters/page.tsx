@@ -75,12 +75,20 @@ export default function CharactersPage() {
                       {character.name}
                     </h2>
                   </Link>
-                  <button
-                    className="bg-yellow-400 text-gray-900 font-bold rounded-full px-4 py-2 mt-4 hover:bg-yellow-500 transition shadow-lg"
-                    disabled
-                  >
-                    Add to Team
-                  </button>
+                  <div className="flex gap-2 mt-4">
+                    <Link
+                      href={`/characters/${character.id}`}
+                      className="bg-blue-500 text-white font-bold rounded-full px-4 py-2 hover:bg-blue-600 transition shadow-lg"
+                    >
+                      Details
+                    </Link>
+                    <button
+                      className="bg-yellow-400 text-gray-900 font-bold rounded-full px-4 py-2 hover:bg-yellow-500 transition shadow-lg"
+                      disabled
+                    >
+                      Add to Team
+                    </button>
+                  </div>
                 </div>
               );
             })}
