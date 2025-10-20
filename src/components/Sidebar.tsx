@@ -21,6 +21,12 @@ export default function Sidebar() {
           >
             Characters
           </Link>
+          <Link
+            href="/team"
+            className="text-yellow-300 hover:text-yellow-400 font-semibold"
+          >
+            Team
+          </Link>
         </nav>
       </aside>
       {/* Mobile bottom nav */}
@@ -38,6 +44,13 @@ export default function Sidebar() {
         >
           <span className="text-xl">👤</span>
           <span className="text-xs">Characters</span>
+        </Link>
+        <Link
+          href="/team"
+          className="flex flex-col items-center text-yellow-300 hover:text-yellow-400 font-semibold"
+        >
+          <span className="text-xl">🗡️</span>
+          <span className="text-xs">Team</span>
         </Link>
       </nav>
     </>
