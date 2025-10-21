@@ -3,7 +3,7 @@ import { useTeam } from "@/context/TeamContext";
 import Image from "next/image";
 
 export default function TeamPage() {
-  const { team } = useTeam();
+  const { team, removeFromTeam } = useTeam();
   const slots = Array.from({ length: 5 }, (_, i) => team[i] || null);
 
   return (
@@ -26,6 +26,12 @@ export default function TeamPage() {
               <span className="text-yellow-400 font-extrabold text-xl mb-2 text-center">
                 {member.name}
               </span>
+              <button
+                className="mt-4 px-4 py-2 bg-red-500 text-white rounded-full font-bold hover:bg-red-600 transition"
+                onClick={() => removeFromTeam(member.id)}
+              >
+                Remove
+              </button>
             </div>
           ) : (
             <div

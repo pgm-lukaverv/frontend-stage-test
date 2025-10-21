@@ -20,16 +20,14 @@ export const TeamProvider = ({ children }: { children: React.ReactNode }) => {
   const [team, setTeam] = useState<Character[]>([]);
 
   useEffect(() => {
-    // On mount, load from localStorage
-    if (team.length === 0) {
-      const saved = localStorage.getItem("team");
-      if (saved) {
-        setTeam(JSON.parse(saved));
-      }
-    } else {
-      // On team change, save to localStorage
-      localStorage.setItem("team", JSON.stringify(team));
+    const storedTeam = localStorage.getItem("team");
+    if (storedTeam) {
+      setTeam(JSON.parse(storedTeam));
     }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("team", JSON.stringify(team));
   }, [team]);
 
   const addToTeam = (character: Character) => {
