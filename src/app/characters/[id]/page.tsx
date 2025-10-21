@@ -13,6 +13,10 @@ export default async function CharacterDetailPage({
   const characters = await fetchCharacters();
   const character = characters.find((c) => c.id === Number(params.id));
 
+  const currentIndex = characters.findIndex((c) => c.id === Number(params.id));
+  const prevCharacter = characters[currentIndex - 1];
+  const nextCharacter = characters[currentIndex + 1];
+
   if (!character) {
     return <div className="p-8">Character not found.</div>;
   }
@@ -33,6 +37,41 @@ export default async function CharacterDetailPage({
         </Link>
       </div>
       <div className="flex flex-col items-center">
+        {/* Navigation arrows */}
+        <div className="flex justify-between items-center w-full mb-4">
+          {prevCharacter ? (
+            <Link href={`/characters/${prevCharacter.id}`}>
+              <button
+                className={`text-3xl px-4 py-2 ${
+                  isEvil
+                    ? "text-red-400 hover:text-red-300"
+                    : "text-yellow-400 hover:text-yellow-300"
+                }`}
+                aria-label="Previous character"
+              >
+                ←
+              </button>
+            </Link>
+          ) : (
+            <span />
+          )}
+          {nextCharacter ? (
+            <Link href={`/characters/${nextCharacter.id}`}>
+              <button
+                className={`text-3xl px-4 py-2 ${
+                  isEvil
+                    ? "text-red-400 hover:text-red-300"
+                    : "text-yellow-400 hover:text-yellow-300"
+                }`}
+                aria-label="Next character"
+              >
+                →
+              </button>
+            </Link>
+          ) : (
+            <span />
+          )}
+        </div>
         <div className="relative w-40 h-40 mb-6">
           <Image
             src={character.image}
