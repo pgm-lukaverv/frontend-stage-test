@@ -1,19 +1,19 @@
 import { fetchCharacters } from "@/lib/fetchCharacters";
+import { Character } from "@/types/character";
 import { isEvilCharacter } from "@/lib/isEvilCharacter";
-import Link from "next/link";
 import Image from "next/image";
-
-interface CharacterPageProps {
-  params: { id: string };
-}
+import Link from "next/link";
 
 export default async function CharacterDetailPage({
   params,
-}: CharacterPageProps) {
-  const characters = await fetchCharacters();
-  const character = characters.find((c) => c.id === Number(params.id));
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const characters: Character[] = await fetchCharacters();
+  const character = characters.find((c) => c.id === Number(id));
 
-  const currentIndex = characters.findIndex((c) => c.id === Number(params.id));
+  const currentIndex = characters.findIndex((c) => c.id === Number(id));
   const prevCharacter = characters[currentIndex - 1];
   const nextCharacter = characters[currentIndex + 1];
 
