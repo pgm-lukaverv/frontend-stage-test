@@ -2,8 +2,8 @@ import { fetchCharacters } from "@/lib/fetchCharacters";
 import { Character } from "@/types/character";
 import { isEvilCharacter } from "@/lib/isEvilCharacter";
 import ClientAddToTeam from "@/components/AddToTeam";
-import Image from "next/image";
 import Link from "next/link";
+import ClientImageWithFallback from "@/components/ClientImageWithFallback";
 
 export default async function CharacterDetailPage({
   params,
@@ -74,14 +74,18 @@ export default async function CharacterDetailPage({
           )}
         </div>
         <div className="relative w-40 h-40 mb-6">
-          <Image
-            src={character.image}
+          <ClientImageWithFallback
+            src={
+              character.image && character.image.trim() !== ""
+                ? character.image
+                : "/placeholder.png"
+            }
             alt={character.name}
-            fill
-            className={`rounded-full object-cover border-4 shadow-lg ${
-              isEvil ? "border-red-500" : "border-yellow-400"
+            width={160}
+            height={160}
+            className={`rounded-full object-cover w-full h-full border-4 shadow ${
+              isEvil ? "border-red-400" : "border-yellow-400"
             }`}
-            sizes="160px"
           />
         </div>
         <h1

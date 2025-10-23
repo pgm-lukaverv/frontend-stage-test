@@ -4,9 +4,9 @@ import { Character } from "@/types/character";
 import { fetchCharacters } from "@/lib/fetchCharacters";
 import { isEvilCharacter } from "@/lib/isEvilCharacter";
 import SkeletonCard from "@/components/SkeletonCard";
-import Image from "next/image";
 import Link from "next/link";
 import ClientAddToTeam from "@/components/AddToTeam";
+import ClientImageWithFallback from "@/components/ClientImageWithFallback";
 
 export default function CharactersPage() {
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -54,11 +54,11 @@ export default function CharactersPage() {
                     className="w-full flex flex-col items-center"
                   >
                     <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center mb-4 relative">
-                      <Image
+                      <ClientImageWithFallback
                         src={
                           character.image && character.image.trim() !== ""
                             ? character.image
-                            : "https://wallpapers.com/images/hd/anonymous-profile-placeholder-34zkftbfh75t42k0.jpg"
+                            : "/placeholder.png"
                         }
                         alt={character.name}
                         width={128}
