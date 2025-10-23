@@ -106,17 +106,38 @@ export default async function CharacterDetailPage({
         />
         <div className="grid grid-cols-2 gap-6 w-full mb-6">
           {[
-            { label: "Gender", value: character.gender },
-            { label: "Species", value: character.species },
-            { label: "Homeworld", value: character.homeworld },
-            { label: "Height", value: `${character.height} m` },
-            { label: "Mass", value: `${character.mass} kg` },
+            {
+              label: "Gender",
+              value: character.gender ? character.gender : "unknown",
+            },
+            {
+              label: "Species",
+              value: character.species ? character.species : "unknown",
+            },
+            {
+              label: "Homeworld",
+              value: character.homeworld ? character.homeworld : "unknown",
+            },
+            {
+              label: "Height",
+              value: character.height ? `${character.height} m` : "unknown",
+            },
+            {
+              label: "Mass",
+              value: character.mass ? `${character.mass} kg` : "unknown",
+            },
             {
               label: "Hair Color",
               value: character.hairColor ? character.hairColor : "N/A",
             },
-            { label: "Skin Color", value: character.skinColor },
-            { label: "Eye Color", value: character.eyeColor },
+            {
+              label: "Skin Color",
+              value: character.skinColor ? character.skinColor : "N/A",
+            },
+            {
+              label: "Eye Color",
+              value: character.eyeColor ? character.eyeColor : "N/A",
+            },
             {
               label: "Cybernetics",
               value: character.cybernetics || "None",

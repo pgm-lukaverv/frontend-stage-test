@@ -6,7 +6,7 @@ export default function Sidebar() {
       {/* Desktop sidebar */}
       <aside className="hidden md:flex fixed top-0 left-0 h-full w-64 bg-gray-900 border-r border-yellow-500 shadow-lg p-6 flex-col z-40">
         <h1 className="text-2xl font-bold text-yellow-400 mb-6 text-center">
-          Star Wars DB
+          Star Wars Team Builder
         </h1>
         <nav className="flex flex-col space-y-4">
           <Link
