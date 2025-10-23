@@ -22,6 +22,8 @@ export default async function CharacterDetailPage({
     return <div className="p-8">Character not found.</div>;
   }
 
+  // Character detail page
+  // Shows character info, image, evil status, navigation, and add-to-team
   const isEvil = isEvilCharacter(character);
   return (
     <main
@@ -29,6 +31,7 @@ export default async function CharacterDetailPage({
         isEvil ? "border-red-500" : "border-yellow-500"
       }`}
     >
+      {/* Back navigation */}
       <div className="mb-6 w-full flex justify-start">
         <Link
           href="/characters"
@@ -43,6 +46,7 @@ export default async function CharacterDetailPage({
           {prevCharacter ? (
             <Link href={`/characters/${prevCharacter.id}`}>
               <button
+                // Show not found if character doesn't exist
                 className={`text-3xl px-4 py-2 ${
                   isEvil
                     ? "text-red-400 hover:text-red-300"
@@ -73,6 +77,7 @@ export default async function CharacterDetailPage({
             <span />
           )}
         </div>
+        {/* Character image with fallback and colored border */}
         <div className="relative w-40 h-40 mb-6">
           <ClientImageWithFallback
             src={
@@ -88,6 +93,7 @@ export default async function CharacterDetailPage({
             }`}
           />
         </div>
+        {/* Character name and evil badge */}
         <h1
           className={`text-4xl font-extrabold mb-4 tracking-wide drop-shadow-lg text-center font-sans flex flex-col items-center gap-2 ${
             isEvil ? "text-red-500" : "text-yellow-400"
@@ -100,10 +106,14 @@ export default async function CharacterDetailPage({
             </span>
           )}
         </h1>
-        <ClientAddToTeam
-          character={character}
-          className="inline-flex items-center gap-2 font-extrabold text-base rounded-full px-6 py-3 mt-2 mb-4 border-2 border-yellow-600 shadow-lg hover:scale-105 hover:shadow-yellow-400/60 transition-all duration-200"
-        />
+        {/* Add-to-Team button (hidden for evil) */}
+        {!isEvil && (
+          <ClientAddToTeam
+            character={character}
+            className="inline-flex items-center gap-2 font-extrabold text-base rounded-full px-6 py-3 mt-2 mb-4 border-2 border-yellow-600 shadow-lg hover:scale-105 hover:shadow-yellow-400/60 transition-all duration-200"
+          />
+        )}
+        {/* Character stats grid */}
         <div className="grid grid-cols-2 gap-6 w-full mb-6">
           {[
             {
@@ -157,7 +167,7 @@ export default async function CharacterDetailPage({
             </div>
           ))}
         </div>
-        {!isEvil && <div className="flex justify-center mb-8"></div>}
+        {/* Character wiki, birth, death, affiliations, etc. */}
         <div className="w-full mb-6">
           <div
             className={`bg-gray-900 border rounded-xl p-4 flex flex-col items-center mb-2 shadow-lg ${

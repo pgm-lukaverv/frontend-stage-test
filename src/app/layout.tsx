@@ -1,3 +1,5 @@
+// Root layout for the app
+// Provides fonts, sidebar, and global TeamProvider context
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -29,9 +31,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Sidebar navigation and global team context */}
         <div className="flex">
           <Sidebar />
           <TeamProvider>
+            {/* Main app content */}
             <main className="flex-1 md:ml-64">{children}</main>
           </TeamProvider>
         </div>

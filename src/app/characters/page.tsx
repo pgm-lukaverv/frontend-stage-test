@@ -1,3 +1,5 @@
+// Characters grid page
+// Displays paginated grid of Star Wars characters with Add-to-Team and details
 "use client";
 import { useEffect, useState } from "react";
 import { Character } from "@/types/character";
@@ -9,11 +11,13 @@ import ClientAddToTeam from "@/components/AddToTeam";
 import ClientImageWithFallback from "@/components/ClientImageWithFallback";
 
 export default function CharactersPage() {
+  // State for character list, loading, pagination
   const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [charactersPerPage, setCharactersPerPage] = useState(8);
 
+  // Fetch characters on mount
   useEffect(() => {
     setLoading(true);
     fetchCharacters()
@@ -22,6 +26,7 @@ export default function CharactersPage() {
       .finally(() => setLoading(false));
   }, []);
 
+  // Pagination logic
   const indexOfLastCharacter = currentPage * charactersPerPage;
   const indexOfFirstCharacter = indexOfLastCharacter - charactersPerPage;
   const currentCharacters = characters.slice(
@@ -32,13 +37,16 @@ export default function CharactersPage() {
 
   return (
     <main className="p-8 min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+      {/* Page title */}
       <h1 className="text-yellow-400 font-extrabold text-4xl mb-8 text-center drop-shadow-lg tracking-wide font-sans">
         Star Wars Characters
       </h1>
+      {/* Characters grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-2 md:px-8 md:ml-0 w-full">
         {loading
           ? Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)
           : currentCharacters.map((character) => {
+              // Determine if character is evil
               const evil = isEvilCharacter(character);
               return (
                 <div
@@ -49,6 +57,7 @@ export default function CharactersPage() {
                       : "border-yellow-500 hover:shadow-yellow-500/40 hover:ring-yellow-400"
                   }`}
                 >
+                  {/* Character image with fallback and colored border */}
                   <Link
                     href={`/characters/${character.id}`}
                     className="w-full flex flex-col items-center"
@@ -68,6 +77,7 @@ export default function CharactersPage() {
                         }`}
                       />
                     </div>
+                    {/* Character name */}
                     <h2
                       className={`text-lg sm:text-xl font-bold text-center mb-2 tracking-wide font-sans break-words ${
                         evil ? "text-red-500" : "text-yellow-400"
@@ -76,6 +86,7 @@ export default function CharactersPage() {
                       {character.name}
                     </h2>
                   </Link>
+                  {/* Details and Add-to-Team buttons */}
                   <div className="flex gap-2 mt-4">
                     <Link
                       href={`/characters/${character.id}`}
@@ -90,6 +101,7 @@ export default function CharactersPage() {
             })}
       </div>
 
+      {/* Pagination and items-per-page selector */}
       {!loading && totalPages > 0 && (
         <div className="flex flex-col items-center mt-8 space-y-2 w-full px-2 mb-16">
           {/* Items per page selector */}
