@@ -2,6 +2,12 @@ prompt: document this application in this read me file, make a summary of all th
 
 # Star Wars Team Builder
 
+# Tech Stack
+
+- Next.js (App Router)
+- Tailwind CSS
+- React
+
 ## Overview
 
 Star Wars Team Builder is a modern web application that lets you assemble your own squad of Star Wars characters. The app is designed for fans who want to explore, select, and manage their favorite heroes and villains in a fun, interactive way.
