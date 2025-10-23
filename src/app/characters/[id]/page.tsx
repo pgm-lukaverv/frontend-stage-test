@@ -1,6 +1,7 @@
 import { fetchCharacters } from "@/lib/fetchCharacters";
 import { Character } from "@/types/character";
 import { isEvilCharacter } from "@/lib/isEvilCharacter";
+import ClientAddToTeam from "@/components/AddToTeam";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -95,6 +96,10 @@ export default async function CharacterDetailPage({
             </span>
           )}
         </h1>
+        <ClientAddToTeam
+          character={character}
+          className="inline-flex items-center gap-2 font-extrabold text-base rounded-full px-6 py-3 mt-2 mb-4 border-2 border-yellow-600 shadow-lg hover:scale-105 hover:shadow-yellow-400/60 transition-all duration-200"
+        />
         <div className="grid grid-cols-2 gap-6 w-full mb-6">
           {[
             { label: "Gender", value: character.gender },
@@ -127,20 +132,7 @@ export default async function CharacterDetailPage({
             </div>
           ))}
         </div>
-        {!isEvil && (
-          <div className="flex justify-center mb-8">
-            <button
-              className="bg-yellow-400 text-gray-900 font-extrabold text-xl rounded-full px-8 py-4 hover:bg-yellow-500 transition shadow-2xl border-4 border-yellow-600 drop-shadow-lg hover:animate-pulse"
-              disabled
-            >
-              <span className="flex items-center gap-2">
-                <span>⭐️</span>
-                Add to Team
-                <span>⭐️</span>
-              </span>
-            </button>
-          </div>
-        )}
+        {!isEvil && <div className="flex justify-center mb-8"></div>}
         <div className="w-full mb-6">
           <div
             className={`bg-gray-900 border rounded-xl p-4 flex flex-col items-center mb-2 shadow-lg ${
