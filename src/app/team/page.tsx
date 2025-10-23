@@ -1,6 +1,6 @@
 "use client";
+import ClientImageWithFallback from "@/components/ClientImageWithFallback";
 import { useTeam } from "@/context/TeamContext";
-import Image from "next/image";
 
 export default function TeamPage() {
   const { team, removeFromTeam } = useTeam();
@@ -16,12 +16,16 @@ export default function TeamPage() {
               key={idx}
               className="flex flex-col items-center justify-center bg-gray-900 border-4 border-yellow-500 rounded-3xl shadow-2xl h-72 w-full max-w-xs mx-auto"
             >
-              <Image
-                src={member.image}
+              <ClientImageWithFallback
+                src={
+                  member.image && member.image.trim() !== ""
+                    ? member.image
+                    : "/placeholder.png"
+                }
                 alt={member.name}
-                width={96}
-                height={96}
-                className="rounded-full object-cover border-4 border-yellow-400 mb-4 shadow"
+                width={128}
+                height={128}
+                className="rounded-full object-cover w-40 h-40 border-4 shadow mb-4 border-yellow-400"
               />
               <span className="text-yellow-400 font-extrabold text-xl mb-2 text-center">
                 {member.name}
