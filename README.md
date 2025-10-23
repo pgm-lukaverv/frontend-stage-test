@@ -2,7 +2,7 @@ prompt: document this application in this read me file, make a summary of all th
 
 # Star Wars Team Builder
 
-# Tech Stack
+## Tech Stack
 
 - Next.js (App Router)
 - Tailwind CSS
