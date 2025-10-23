@@ -20,7 +20,7 @@ export default function TeamPage() {
           member ? (
             // Team member card
             <div
-              key={idx}
+              key={member.id}
               className="flex flex-col items-center justify-center bg-gray-900 border-4 border-yellow-500 rounded-3xl shadow-2xl h-72 w-full max-w-xs mx-auto"
             >
               <ClientImageWithFallback
@@ -48,7 +48,7 @@ export default function TeamPage() {
           ) : (
             // Empty slot card
             <div
-              key={idx}
+              key={`empty-${idx}`}
               className="flex flex-col items-center justify-center bg-gray-900 border-4 border-yellow-500 rounded-3xl shadow-2xl h-72 w-full max-w-xs mx-auto"
             >
               <span className="text-7xl mb-4">⭐️</span>
